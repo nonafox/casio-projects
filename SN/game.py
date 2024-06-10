@@ -99,11 +99,12 @@ def game_p1_turn(i: int):
                 game_p1_turn_dead()
             return
         elif key == KEY_DEL:
-            if wi[- 1] in w:
-                ws += wi[- 1]
-            else:
-                eaten += wi[- 1]
-            wi = wi[0 : - 1]
+            if len(wi):
+                if wi[- 1] in w:
+                    ws += wi[- 1]
+                else:
+                    eaten += wi[- 1]
+                wi = wi[0 : - 1]
         else:
             ch = translate_key(key)
             if ch in ws:
