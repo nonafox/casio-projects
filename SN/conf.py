@@ -13,7 +13,7 @@ FONT_MARGIN_WIDTH = 1
 FONT_SIZES = {
     'small': [3, 5],
     'medium': [4, 6],
-    'large': [5, 7]
+    'large': [5, 7],
 }
 FONT_SMALL = 'small'
 FONT_MEDIUM = 'medium'
@@ -50,7 +50,7 @@ KEYS_TABLE = {
     KEY_3: 'w',
     KEY_PLUS: 'x',
     KEY_MINUS: 'y',
-    KEY_0: 'z'
+    KEY_0: 'z',
 }
 
 GAME_P1_TURNS = 5
@@ -69,6 +69,11 @@ GAME_P1_SN_SCORE_L = 3
 GAME_P1_SN_SCORE_R = 5
 GAME_P1_ME_SCORE_L = 2
 GAME_P1_ME_SCORE_R = 7
+GAME_P1_ME_SCORE_XTRA_BAD_WORDS_L = 6
+GAME_P1_ME_SCORE_XTRA_BAD_WORDS_R = 10
+GAME_P1_ME_SCORE_XTRA_CHEAT_L = 1
+GAME_P1_ME_SCORE_XTRA_CHEAT_R = 10
+GAME_P1_ME_SCORE_XTRA_YUE = 1
 GAME_TEXTS = {
     'SN_SCORED': ['Yes yes!', 'Em. Dui. Yes.'],
     'ME_SCORED': [
@@ -78,5 +83,8 @@ GAME_TEXTS = {
         ['Siu!!!'],
         ['Ha ha ha!'],
         ['Oh~~~'],
-    ]
+    ],
 }
+GAME_EAT_MAX = [10, 8, 5, 7, 5, 6]
+GAME_BAD_WORDS = ['shit', 'fuck', 'damn', 'bitch', 'dick', 'mamba', 'leo', 'messi', 'kobe']
+GAME_CHEAT_POSS = .5

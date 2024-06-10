@@ -15,6 +15,8 @@ def color_invert(color: RGB_BLACK | RGB_WHITE):
     if color == RGB_BLACK:
         return RGB_WHITE
     return RGB_BLACK
+def poss(poss: float):
+    return poss * 100 >= random.randint(0, 100)
 
 def wait_key(key: int):
     cleareventflips()

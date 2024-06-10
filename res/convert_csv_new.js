@@ -29,10 +29,11 @@ for (let k in lines) {
         res += w[0] + '\n'
         let cc = charcodes(w[0])
         if (cc in table) {
-            table[cc].push(w[0])
+            if (! (w[0].toLowerCase() in table[cc]))
+                table[cc].push(w[0].toLowerCase())
         }
         else {
-            table[cc] = [w[0]]
+            table[cc] = [w[0].toLowerCase()]
         }
         i ++
     }
@@ -47,7 +48,7 @@ for (let i in table) {
         let v2 = v[k2]
         let tmp = Object.assign([], v)
         tmp.splice(k2, 1)
-        table_[v2] = tmp
+        table_[v2.toLowerCase()] = tmp
     }
 }
 res = res.replace(/\s$/, '')
