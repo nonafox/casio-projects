@@ -68,6 +68,7 @@ def game_p1_turn(i: int):
         my_text(0, 20, f'{i + 1}/{GAME_P1_TURNS} {tl}s', RGB_BLACK, FONT_SMALL)
         my_text(.5, .6, ws, RGB_BLACK, FONT_LARGE)
         my_text(.5, .8, wi, RGB_BLACK, FONT_LARGE)
+        my_text(.5, .9, eaten, RGB_BLACK, FONT_LARGE)
         dupdate()
         if tl <= 0:
             game_p1_turn_dead()
@@ -91,7 +92,7 @@ def game_p1_turn(i: int):
                 else:
                     game_p1_notice('NO cheating!')
             else:
-                if len(eaten) <= GAME_EAT_MAX[curr_hero]:
+                if len(eaten + wi) <= GAME_EAT_MAX[curr_hero]:
                     eaten += wi
                 else:
                     eaten = ''
