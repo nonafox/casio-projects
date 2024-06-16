@@ -21,7 +21,7 @@ def index_select_roles():
     while 1:
         curr_hero = data_get('hero')
         curr_hero_name = GAME_HEROES[curr_hero]['name']
-        my_text(.5, .5, curr_hero_name)
+        my_text(.5, .5, GAME_HEROES[curr_hero]['nick'], RGB_BLACK, FONT_LARGE)
         dupdate()
         key = wait_any_key()
         if key == KEY_EXE:
@@ -38,11 +38,11 @@ def game_p1_display(flag: int, param = None):
     elif flag == GAME_P1_DISPLAY_STATUS:
         my_text(0, 20, param, RGB_BLACK, FONT_SMALL)
     elif flag == GAME_P1_DISPLAY_WS:
-        my_text(.5, .6, param, RGB_BLACK, FONT_LARGE)
+        my_text(.5, .5, param, RGB_BLACK, FONT_LARGE)
     elif flag == GAME_P1_DISPLAY_WI:
-        my_text(.5, .8, param, RGB_BLACK, FONT_LARGE)
+        my_text(.5, .7, param, RGB_BLACK, FONT_LARGE)
     elif flag == GAME_P1_DISPLAY_EATEN:
-        my_text(.5, .10, param, RGB_BLACK, FONT_SMALL)
+        my_text(.5, .95, param, RGB_WHITE, FONT_LARGE)
 def game_p1_display_default(flags: int = GAME_P1_DISPLAY_ALL):
     global i, tl
     if flags & GAME_P1_DISPLAY_SCORES:
