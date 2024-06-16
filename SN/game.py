@@ -100,35 +100,35 @@ def game_p1_turn():
         key = wait_any_key()
         if key == KEY_EXE:
             if wi == 'yue':
-                wi = ''
                 eaten = ''
-                game_p1_notice('Yue!!!', GAME_P1_DISPLAY_WI | GAME_P1_DISPLAY_EATEN)
+                game_p1_notice('Yue!!!', GAME_P1_DISPLAY_EATEN)
+                wi = ''
                 if curr_hero == 6:
                     game_p1_turn_dead(GAME_P1_ME_SCORE_XTRA_YUE)
                 else:
                     game_p1_turn_win(GAME_P1_ME_SCORE_XTRA_YUE)
             elif curr_hero == 5 and wi in GAME_SEXY_WORDS:
+                game_p1_notice('Ah~~ ahhh~~~')
                 wi = ''
-                game_p1_notice('Ah~~ ahhh~~~', GAME_P1_DISPLAY_WI)
                 game_p1_turn_win(random.randint(GAME_SEXY_WORDS.index(wi), GAME_P1_ME_SCORE_XTRA_SEXY_WORDS_M))
             elif wi in GAME_BAD_WORDS:
+                game_p1_notice('Dont say that word!!!')
                 wi = ''
-                game_p1_notice('Dont say that word!!!', GAME_P1_DISPLAY_WI)
                 game_p1_turn_win(random.randint(GAME_BAD_WORDS.index(wi), GAME_P1_ME_SCORE_XTRA_BAD_WORDS_M))
             elif wi == 'cheat':
-                wi = ''
                 if curr_hero == 3 or poss(GAME_CHEAT_POSS):
-                    game_p1_notice('Genius!', GAME_P1_DISPLAY_WI)
+                    game_p1_notice('Genius!')
                     game_p1_turn_win(random.randint(GAME_P1_ME_SCORE_XTRA_CHEAT_L, GAME_P1_ME_SCORE_XTRA_CHEAT_R))
                 else:
-                    game_p1_notice('NO cheating!', GAME_P1_DISPLAY_WI)
-            elif (curr_hero == 4 and wi == 'bdbd') or wi == 'bdbdbd':
+                    game_p1_notice('NO cheating!')
                 wi = ''
-                game_p1_notice('Inverse!', GAME_P1_DISPLAY_WI)
+            elif (curr_hero == 4 and wi == 'bdbd') or wi == 'bdbdbd':
+                game_p1_notice('Inverse!')
+                wi = ''
                 a, b = b, a
             elif wi == 'math':
+                game_p1_notice('Math power!')
                 wi = ''
-                game_p1_notice('Math power!', GAME_P1_DISPLAY_WI)
                 if poss(GAME_ZERO_POSS * 2) if curr_hero == 1 else poss(GAME_ZERO_POSS):
                     a = b = 0
                 else:
