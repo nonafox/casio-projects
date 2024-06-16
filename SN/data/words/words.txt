@@ -20,7 +20,7 @@ affair
 affect
 afford
 afraid
-Africa
+africa
 agency
 almost
 always
@@ -52,7 +52,7 @@ attach
 attack
 attain
 attend
-August
+august
 author
 autumn
 avenue
@@ -84,7 +84,7 @@ bottom
 bounce
 branch
 brandy
-Brazil
+brazil
 breast
 breath
 breeze
@@ -104,7 +104,7 @@ butter
 button
 camera
 campus
-Canada
+canada
 cancel
 cancer
 candle
@@ -223,7 +223,7 @@ enough
 ensure
 entire
 escape
-Europe
+europe
 evolve
 exceed
 except
@@ -266,11 +266,11 @@ forget
 formal
 former
 fourth
-France
+france
 freely
 freeze
-French
-Friday
+french
+friday
 fridge
 friend
 fulfil
@@ -282,7 +282,7 @@ gather
 genius
 gentle
 gently
-German
+german
 glance
 gloomy
 golden
@@ -322,7 +322,7 @@ import
 impose
 income
 indeed
-Indian
+indian
 infant
 infect
 inform
@@ -401,13 +401,13 @@ midday
 middle
 minute
 mirror
-Mister
+mister
 mobile
 modern
 modest
 modify
 moment
-Monday
+monday
 monkey
 mortal
 mostly
@@ -469,7 +469,7 @@ poison
 police
 policy
 polish
-Polish
+polish
 polite
 porter
 potato
@@ -617,7 +617,7 @@ solely
 solemn
 sorrow
 source
-Soviet
+soviet
 speech
 sphere
 spider
@@ -654,7 +654,7 @@ subway
 sudden
 suffer
 summer
-Sunday
+sunday
 sunset
 supper
 supply

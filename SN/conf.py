@@ -53,27 +53,26 @@ KEYS_TABLE = {
     KEY_0: 'z',
 }
 
-GAME_P1_TURNS = 5
-GAME_P1_TIME_LIMIT = 30000
+GAME_P1_TURNS = 16
+GAME_P1_TIME_LIMIT = 40000
 GAME_WORD_SIZE = 6
 GAME_HEROES = [
-    { 'name': 'HHC', 'img': IMG_ROLE_11 },
-    { 'name': 'HJJ', 'img': IMG_ROLE_13 },
-    { 'name': 'QMY', 'img': IMG_ROLE_36 },
-    { 'name': 'TZY', 'img': IMG_ROLE_39 },
-    { 'name': 'WLH', 'img': IMG_ROLE_40 },
-    { 'name': 'XJY', 'img': IMG_ROLE_42 },
+    { 'name': 'HHC', 'nick': 'Honghong Chou' },
+    { 'name': 'HJJ', 'nick': 'Huang Jijing' },
+    { 'name': 'QMY', 'nick': 'Qiu Miao' },
+    { 'name': 'TZY', 'nick': 'Tangent Y' },
+    { 'name': 'WLH', 'nick': 'Lu Kehan' },
+    { 'name': 'XJY', 'nick': 'Sexual Education' },
+    { 'name': 'ZKY', 'nick': 'Joker Rain' },
 ]
 GAME_HEROES_NUM = len(GAME_HEROES)
-GAME_P1_SN_SCORE_L = 3
-GAME_P1_SN_SCORE_R = 5
-GAME_P1_ME_SCORE_L = 2
+GAME_P1_SN_SCORE_L = 2
+GAME_P1_SN_SCORE_R = 10
+GAME_P1_ME_SCORE_L = 5
 GAME_P1_ME_SCORE_R = 7
-GAME_P1_ME_SCORE_XTRA_BAD_WORDS_L = 6
-GAME_P1_ME_SCORE_XTRA_BAD_WORDS_R = 10
-GAME_P1_ME_SCORE_XTRA_CHEAT_L = 1
-GAME_P1_ME_SCORE_XTRA_CHEAT_R = 10
-GAME_P1_ME_SCORE_XTRA_YUE = 1
+GAME_P1_ME_SCORE_XTRA_CHEAT_L = 6
+GAME_P1_ME_SCORE_XTRA_CHEAT_R = 30
+GAME_P1_ME_SCORE_XTRA_YUE = 6
 GAME_TEXTS = {
     'SN_SCORED': ['Yes yes!', 'Em. Dui. Yes.'],
     'ME_SCORED': [
@@ -83,8 +82,19 @@ GAME_TEXTS = {
         ['Siu!!!'],
         ['Ha ha ha!'],
         ['Oh~~~'],
+        ['How am I?'],
     ],
 }
-GAME_EAT_MAX = [10, 8, 5, 7, 5, 6]
-GAME_BAD_WORDS = ['shit', 'fuck', 'damn', 'bitch', 'dick', 'mamba', 'leo', 'messi', 'kobe']
-GAME_CHEAT_POSS = .5
+GAME_EAT_MAX = [12, 8, 5, 7, 5, 6, 7]
+GAME_BAD_WORDS = ['god', 'leo', 'siu', 'kobe', 'shit', 'damn', 'mamba', 'nigga', 'fuck', 'jesus', 'joker', 'damnit', 'nigger']
+GAME_SEXY_WORDS = ['sex', 'sexy', 'dick', 'fuck', 'pussy', 'sperm', 'virgin', 'vagina']
+GAME_P1_ME_SCORE_XTRA_BAD_WORDS_M = len(GAME_BAD_WORDS) * 2
+GAME_P1_ME_SCORE_XTRA_SEXY_WORDS_M = len(GAME_SEXY_WORDS) * 3
+GAME_CHEAT_POSS = .6
+GAME_ZERO_POSS = .7 / 2
+GAME_P1_DISPLAY_SCORES  = 0b1
+GAME_P1_DISPLAY_STATUS  = 0b10
+GAME_P1_DISPLAY_WS      = 0b100
+GAME_P1_DISPLAY_WI      = 0b1000
+GAME_P1_DISPLAY_EATEN   = 0b10000
+GAME_P1_DISPLAY_ALL     = 0b11111

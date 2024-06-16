@@ -26,14 +26,15 @@ for (let k in lines) {
     let v = lines[k].replace(/^\s/g, '').replace(/\s$/g, '')
     let w = v.split(',')
     if (w[0].match(/^[a-zA-Z]+$/) && w[0].length == 6) {
+        w[0] = w[0].toLowerCase()
         res += w[0] + '\n'
         let cc = charcodes(w[0])
         if (cc in table) {
-            if (! (w[0].toLowerCase() in table[cc]))
-                table[cc].push(w[0].toLowerCase())
+            if (! (w[0] in table[cc]))
+                table[cc].push(w[0])
         }
         else {
-            table[cc] = [w[0].toLowerCase()]
+            table[cc] = [w[0]]
         }
         i ++
     }

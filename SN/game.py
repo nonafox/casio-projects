@@ -5,8 +5,10 @@ from imgs import *
 from data_helper import *
 import time
 import random
+import math
 
 curr_hero, curr_hero_name = '', ''
+i, tl = 0, 0
 a, b = 0, 0
 w, wa, ws, wi = '', '', '', ''
 eaten = ''
@@ -19,7 +21,7 @@ def index_select_roles():
     while 1:
         curr_hero = data_get('hero')
         curr_hero_name = GAME_HEROES[curr_hero]['name']
-        dsubimage(0, 20, GAME_HEROES[curr_hero]['img'], 0, 10, SCREEN_WIDTH, SCREEN_HEIGHT - 10)
+        my_text(.5, .5, curr_hero_name)
         dupdate()
         key = wait_any_key()
         if key == KEY_EXE:
@@ -29,31 +31,57 @@ def index_select_roles():
         elif key == KEY_LEFT:
             data_set('hero', carousel(curr_hero, - 1, 0, GAME_HEROES_NUM - 1))
 
-def game_p1_scores():
+def game_p1_display(flag: int, param = None):
     global a, b, curr_hero_name
-    my_text(.5, 5, f'SN {a} - {b} {curr_hero_name}', RGB_WHITE, FONT_LARGE)
+    if flag == GAME_P1_DISPLAY_SCORES:
+        my_text(.5, 5, f'SN {a} - {b} {curr_hero_name}', RGB_WHITE, FONT_LARGE)
+    elif flag == GAME_P1_DISPLAY_STATUS:
+        my_text(0, 20, param, RGB_BLACK, FONT_SMALL)
+    elif flag == GAME_P1_DISPLAY_WS:
+        my_text(.5, .6, param, RGB_BLACK, FONT_LARGE)
+    elif flag == GAME_P1_DISPLAY_WI:
+        my_text(.5, .8, param, RGB_BLACK, FONT_LARGE)
+    elif flag == GAME_P1_DISPLAY_EATEN:
+        my_text(.5, .10, param, RGB_BLACK, FONT_SMALL)
+def game_p1_display_default(flags: int = GAME_P1_DISPLAY_ALL):
+    global i, tl
+    if flags & GAME_P1_DISPLAY_SCORES:
+        game_p1_display(GAME_P1_DISPLAY_SCORES)
+    if flags & GAME_P1_DISPLAY_STATUS:
+        game_p1_display(GAME_P1_DISPLAY_STATUS, f'{i + 1}/{GAME_P1_TURNS} {tl}s')
+    if flags & GAME_P1_DISPLAY_WS:
+        game_p1_display(GAME_P1_DISPLAY_WS, ws)
+    if flags & GAME_P1_DISPLAY_WI:
+        game_p1_display(GAME_P1_DISPLAY_WI, wi)
+    if flags & GAME_P1_DISPLAY_EATEN:
+        game_p1_display(GAME_P1_DISPLAY_EATEN, eaten)
 def game_p1_turn_dead(score: int = random.randint(GAME_P1_SN_SCORE_L, GAME_P1_SN_SCORE_R)):
-    global a, b, w, wa, ws, wi
+    global a, b, w, wa, ws, wi, eaten
     a += score
-    game_p1_scores()
-    my_text(0, 20, random.choice(GAME_TEXTS['SN_SCORED']), RGB_BLACK, FONT_SMALL)
-    my_text(.5, .8, '/'.join(wa), RGB_BLACK, FONT_LARGE)
+    game_p1_display(GAME_P1_DISPLAY_SCORES)
+    game_p1_display(GAME_P1_DISPLAY_STATUS, random.choice(GAME_TEXTS['SN_SCORED']))
+    game_p1_display(GAME_P1_DISPLAY_WS, ws)
+    game_p1_display(GAME_P1_DISPLAY_WI, '/'.join(wa))
+    game_p1_display(GAME_P1_DISPLAY_EATEN, eaten)
     dupdate()
     wait_key(KEY_EXE)
 def game_p1_turn_win(score: int = random.randint(GAME_P1_ME_SCORE_L, GAME_P1_ME_SCORE_R)):
-    global a, b, w, wa, ws, wi, curr_hero
+    global a, b, w, wa, ws, wi, curr_hero, eaten
     b += score
-    game_p1_scores()
-    my_text(0, 20, random.choice(GAME_TEXTS['ME_SCORED'][curr_hero]), RGB_BLACK, FONT_SMALL)
-    my_text(.5, .8, '/'.join(wa), RGB_BLACK, FONT_LARGE)
+    game_p1_display(GAME_P1_DISPLAY_SCORES)
+    game_p1_display(GAME_P1_DISPLAY_STATUS, random.choice(GAME_TEXTS['ME_SCORED'][curr_hero]))
+    game_p1_display(GAME_P1_DISPLAY_WS, ws)
+    game_p1_display(GAME_P1_DISPLAY_WI, '/'.join(wa))
+    game_p1_display(GAME_P1_DISPLAY_EATEN, eaten)
     dupdate()
     wait_key(KEY_EXE)
-def game_p1_notice(text: str):
-    my_text(0, 20, text, RGB_BLACK, FONT_SMALL)
+def game_p1_notice(text: str, display_flags: int = GAME_P1_DISPLAY_ALL):
+    game_p1_display_default(display_flags)
+    game_p1_display(GAME_P1_DISPLAY_STATUS, text)
     dupdate()
     wait_key(KEY_EXE)
-def game_p1_turn(i: int):
-    global a, b, w, wa, ws, wi, curr_hero_name, eaten
+def game_p1_turn():
+    global i, a, b, w, wa, ws, wi, curr_hero_name, eaten, tl
     dclear(C_WHITE)
     dimage(0, 0, IMG_ROLE_BG)
     w = word()
@@ -64,11 +92,7 @@ def game_p1_turn(i: int):
     while 1:
         dt = time.ticks_ms() - t
         tl = int((GAME_P1_TIME_LIMIT - dt) / 1000)
-        game_p1_scores()
-        my_text(0, 20, f'{i + 1}/{GAME_P1_TURNS} {tl}s', RGB_BLACK, FONT_SMALL)
-        my_text(.5, .6, ws, RGB_BLACK, FONT_LARGE)
-        my_text(.5, .8, wi, RGB_BLACK, FONT_LARGE)
-        my_text(.5, .9, eaten, RGB_BLACK, FONT_LARGE)
+        game_p1_display_default()
         dupdate()
         if tl <= 0:
             game_p1_turn_dead()
@@ -78,30 +102,50 @@ def game_p1_turn(i: int):
             if wi == 'yue':
                 wi = ''
                 eaten = ''
-                game_p1_notice('Yue!!!')
-                game_p1_turn_win(GAME_P1_ME_SCORE_XTRA_YUE)
+                game_p1_notice('Yue!!!', GAME_P1_DISPLAY_WI | GAME_P1_DISPLAY_EATEN)
+                if curr_hero == 6:
+                    game_p1_turn_dead(GAME_P1_ME_SCORE_XTRA_YUE)
+                else:
+                    game_p1_turn_win(GAME_P1_ME_SCORE_XTRA_YUE)
+            elif curr_hero == 5 and wi in GAME_SEXY_WORDS:
+                wi = ''
+                game_p1_notice('Ah~~ ahhh~~~', GAME_P1_DISPLAY_WI)
+                game_p1_turn_win(random.randint(GAME_SEXY_WORDS.index(wi), GAME_P1_ME_SCORE_XTRA_SEXY_WORDS_M))
             elif wi in GAME_BAD_WORDS:
                 wi = ''
-                game_p1_notice('Dont say that word!!!')
-                game_p1_turn_win(random.randint(GAME_P1_ME_SCORE_XTRA_BAD_WORDS_L, GAME_P1_ME_SCORE_XTRA_BAD_WORDS_R))
+                game_p1_notice('Dont say that word!!!', GAME_P1_DISPLAY_WI)
+                game_p1_turn_win(random.randint(GAME_BAD_WORDS.index(wi), GAME_P1_ME_SCORE_XTRA_BAD_WORDS_M))
             elif wi == 'cheat':
                 wi = ''
                 if curr_hero == 3 or poss(GAME_CHEAT_POSS):
-                    game_p1_notice('Genius!')
+                    game_p1_notice('Genius!', GAME_P1_DISPLAY_WI)
                     game_p1_turn_win(random.randint(GAME_P1_ME_SCORE_XTRA_CHEAT_L, GAME_P1_ME_SCORE_XTRA_CHEAT_R))
                 else:
-                    game_p1_notice('NO cheating!')
+                    game_p1_notice('NO cheating!', GAME_P1_DISPLAY_WI)
+            elif (curr_hero == 4 and wi == 'bdbd') or wi == 'bdbdbd':
+                wi = ''
+                game_p1_notice('Inverse!', GAME_P1_DISPLAY_WI)
+                a, b = b, a
+            elif wi == 'math':
+                wi = ''
+                game_p1_notice('Math power!', GAME_P1_DISPLAY_WI)
+                if poss(GAME_ZERO_POSS * 2) if curr_hero == 1 else poss(GAME_ZERO_POSS):
+                    a = b = 0
+                else:
+                    gcd = math.gcd(a, b)
+                    a //= gcd
+                    b //= gcd
             else:
                 if len(eaten + wi) <= GAME_EAT_MAX[curr_hero]:
                     eaten += wi
                 else:
                     eaten = ''
-                    game_p1_notice('Full and yued...')
+                    game_p1_notice('Full and yued...', GAME_P1_DISPLAY_EATEN)
                 game_p1_turn_dead()
             return
         elif key == KEY_DEL:
             if len(wi):
-                if wi[- 1] in w:
+                if wi[- 1] in w and ws.count(wi[- 1]) < w.count(wi[- 1]):
                     ws += wi[- 1]
                 else:
                     eaten += wi[- 1]
@@ -119,8 +163,9 @@ def game_p1_turn(i: int):
             game_p1_turn_win()
             return
 def game():
+    global i
     for i in range(GAME_P1_TURNS):
-        game_p1_turn(i)
+        game_p1_turn()
 
 def go():
     index_select_roles()

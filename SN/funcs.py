@@ -51,9 +51,11 @@ def my_text(x: int, y: int, text: str, color: RGB_BLACK | RGB_WHITE, size: str):
         x1 = calc_text_pos(0, x, text, size)
     if 0 < y < 1:
         y1 = calc_text_pos(1, y, text, size)
+    myprofile = [x1, y1, text, color, size]
     if (x, y) in my_texts:
         profile = my_texts[x, y]
-        draw_string(profile[0], profile[1], profile[2], color_invert(profile[3]), profile[4])
+        if profile != myprofile:
+            draw_string(profile[0], profile[1], profile[2], color_invert(profile[3]), profile[4])
         del my_texts[x, y]
     draw_string(x1, y1, text, color, size)
-    my_texts[x, y] = [x1, y1, text, color, size]
+    my_texts[x, y] = myprofile
